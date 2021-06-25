@@ -21,14 +21,18 @@ class Home extends Component {
           };
     }
     setModalVisible = (visible) => {
+        
         this.setState({ modalVisible: visible });
       }
     setLanguage = (lang) => {
         i18n.locale = lang
+       
         this.setModalVisible(false)
+        
     }
       
     async componentDidMount() {
+        translate.cache.clear();
         const settings = await loadSettings();
         console.log("language: ", i18n.locale);
         if (settings !== null) {
@@ -41,7 +45,7 @@ class Home extends Component {
         return(
             <View style = {styles.container}>
                 <View style = {styles.textBoard}>
-                    <Text style = {styles.text}>{i18n.t('hello')}</Text>
+                    <Text style = {styles.text}>{i18n.translate('hello')}</Text>
                     <TouchableOpacity style = {styles.settingsButton} onPress={() => this.setModalVisible(true)}>
                          <Image 
                             style = {styles.settingsIcon}

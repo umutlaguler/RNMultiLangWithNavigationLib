@@ -8,7 +8,7 @@ import SecondPage from './src/SecondPage';
 import ThirdPage from './src/ThirdPage';
 import FourthPage from './src/FourthPage';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import Ionicons from 'react-native-vector-icons/Ionicons';
+// import Ionicons from 'react-native-vector-icons/Ionicons';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -30,7 +30,7 @@ function Router() {
             }
 
             // You can return any component that you like here!
-            return <Ionicons name={iconName} size={size} color={color} />;
+            // return <Ionicons name={iconName} size={size} color={color} />;
           },
         })}
         tabBarOptions={{
