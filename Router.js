@@ -40,7 +40,7 @@ function Router() {
       >
         <Tab.Screen name="home" component={Home} options={{ tabBarBadge: 65 }} />
         <Tab.Screen name="second" component={SecondPage} />
-        <Tab.Screen name="third" component={ThirdPage} />
+        <Tab.Screen name="Profile" component={ThirdPage} />
         <Tab.Screen name="fourth" component={FourthPage} />
       </Tab.Navigator>
     </NavigationContainer>

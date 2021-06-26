@@ -6,7 +6,7 @@ import tr from "../src/translations/tr.json";
 import fr from "../src/translations/fr.json";
 import en from "../src/translations/en.json";
 import { loadSettings } from '../src/translations/Settings';
-
+import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 
 // i18n.defaultLocale = 'tr';
 // i18n.locale = 'fr';
@@ -30,7 +30,6 @@ class Home extends Component {
         this.setModalVisible(false)
         
     }
-      
     async componentDidMount() {
         translate.cache.clear();
         const settings = await loadSettings();
@@ -41,6 +40,7 @@ class Home extends Component {
           }
     }
     render() {
+        
         const { modalVisible } = this.state;
         return(
             <View style = {styles.container}>

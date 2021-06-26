@@ -1,6 +1,7 @@
 
 import React, { Component } from 'react';
 import { View, Text } from 'react-native';
+import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 
 
 export default class SecondPage extends Component {
