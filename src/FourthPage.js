@@ -23,31 +23,37 @@ class Maps extends Component {
     this.state = {
         coordinates: [
           {
+            id:"1",
             title: "umut",
             latitude:  37.027107,
             longitude: 35.271128,
           },
           {
+            id:"12",
             title: "umut",
             latitude:37.033959,
             longitude:35.339449,
           },
           {
+            id:"132323",
             title: "umut",
             latitude:36.982417,
             longitude: 35.321425,
           },
           {
+            id:"41",
             title: "umut",
             latitude:36.961022,
             longitude:35.313354,
           },
           {
+            id:"51",
             title: "umut",
             latitude: 36.994680,
             longitude: 35.294817,
           },
            {
+             id:"61",
             title: "umut",
             latitude: 36.994680,
             longitude: 35.294817,
@@ -70,14 +76,13 @@ class Maps extends Component {
    console.log("umut");
    this.state.coordinates.map((item)=>console.log("title",item.title));
    return(
-<View style={[styles.cardWrapper, { height: PhoneHeight * 0.1, width:PhoneWidth * 0.9}]}>
+<View style={[styles.cardWrapper, { height: PhoneHeight * 0.1, width:PhoneWidth * 0.8}]}>
   <Image
       source={require('./images/userBackground.png')}
       style={styles.memberCardImage}
       resizeMode="cover" />
   <View style={{ justifyContent: 'space-around', }}>
-      {/* <Text style={[styles.montserratSemiBold, styles.memberCardTitle]}> { item.fullName } </Text>
-      <Text style={[envStyles.montserratLight, styles.memberCardSubTitle]}> { item.task_title } </Text> */}
+
   </View>
 </View>
 )
@@ -86,6 +91,7 @@ class Maps extends Component {
    console.log("changed ", changed);
   changed.map(changedData => {
       if(changedData.isViewable == true) {
+        console.log("changed in if", changedData);
           this.mapView.animateToRegion({
               latitude: parseFloat(changedData.item.latitude),
               longitude: parseFloat(changedData.item.longitude),
@@ -102,18 +108,16 @@ class Maps extends Component {
       <View style = {styles.container}>
       
          <MapView
-          rotateEnabled={false}
-         followsUserLocation={true}
-        //  showsUserLocation={true}
-          initialRegion={{
+            rotateEnabled={false}
+            initialRegion={{
             latitude: LATITUDE,
             longitude: LONGITUDE,
             latitudeDelta: LATITUDE_DELTA,
             longitudeDelta: LONGITUDE_DELTA,
           }}
-          style={StyleSheet.absoluteFill}
-          ref={c => this.mapView = c}
-          //onpress gelecek
+            style={StyleSheet.absoluteFill}
+            ref={c => this.mapView = c}
+            //onpress gelecek
         >
            {this.state.coordinates.map((coordinate, index) =>//burası markerları katıyor
             <MapView.Marker key={`coordinate_${index}`} coordinate={coordinate} />
@@ -121,24 +125,16 @@ class Maps extends Component {
            </MapView> 
            <SafeAreaView style={{ height: PhoneHeight, width: '100%', position: 'absolute', justifyContent: 'space-between'}}>
            <FlatList
-           onViewableItemsChanged={this.onViewableItemsChanged}
-           snapToAlignment={"center"}
-           decelerationRate={0}
-           horizontal
-           snapToInterval={PhoneWidth - 40} // default -60
-           style={styles.companiesContainer}
-           viewabilityConfig={{
-            itemVisiblePercentThreshold: 100,
-        }}
-        contentOffset={
-            this.state.coordinates.length > 1 ?
-            {
-                left: 10, // default 30
-                right: 10, // default 30
-            }:null}
-            keyExtractor={(item) => item}
-            data={this.state.coordinates}
-            renderItem={this.locationRenderItem} />
+            pagingEnabled
+            onViewableItemsChanged={this.onViewableItemsChanged}
+            horizontal
+            style={styles.companiesContainer}
+            viewabilityConfig={{
+              itemVisiblePercentThreshold: 100,
+            }}
+              keyExtractor={(item) => item.id}
+              data={this.state.coordinates}
+              renderItem={this.locationRenderItem} />
           </SafeAreaView>
     </View>
       );
@@ -217,7 +213,7 @@ const styles = StyleSheet.create({
   },
   cardWrapper: {
     zIndex:1,
-    marginHorizontal:PhoneWidth*0.01,
+    marginHorizontal:PhoneWidth*0.1,
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: '#fff',
