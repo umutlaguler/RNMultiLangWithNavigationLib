@@ -23,38 +23,38 @@ class Maps extends Component {
     this.state = {
         coordinates: [
           {
-            id:"1",
-            title: "umut",
+            // id:"1",
+            // title: "umut",
             latitude:  37.027107,
             longitude: 35.271128,
           },
           {
-            id:"12",
-            title: "umut",
+            // id:"12",
+            // title: "umut",
             latitude:37.033959,
             longitude:35.339449,
           },
           {
-            id:"132323",
-            title: "umut",
+            // id:"132323",
+            // title: "umut",
             latitude:36.982417,
             longitude: 35.321425,
           },
           {
-            id:"41",
-            title: "umut",
+            // id:"41",
+            // title: "umut",
             latitude:36.961022,
             longitude:35.313354,
           },
           {
-            id:"51",
-            title: "umut",
+            // id:"51",
+            // title: "umut",
             latitude: 36.994680,
             longitude: 35.294817,
           },
            {
-             id:"61",
-            title: "umut",
+            //  id:"61",
+            // title: "umut",
             latitude: 36.994680,
             longitude: 35.294817,
           },
@@ -71,6 +71,17 @@ class Maps extends Component {
 //       ],
 //     });
 //   }
+haversine = require('haversine')
+
+ start = {
+  latitude:  37.027107,
+  longitude: 35.271128,
+}
+
+ end = {
+  latitude:36.961022,
+            longitude:35.313354,
+}
 
  locationRenderItem = () => {
    console.log("umut");
@@ -103,6 +114,12 @@ class Maps extends Component {
 }
 
   render() {
+    console.log("dflsşfsd",this.haversine(this.start, this.end))
+console.log(this.haversine(this.state.coordinates[0], this.state.coordinates[1], {unit: 'mile'}),"mile")
+console.log(this.haversine(this.state.coordinates[0], this.state.coordinates[1], {unit: 'meter'}),"meter")
+console.log(this.haversine(this.start, this.end, {threshold: 1}))
+console.log(this.haversine(this.start, this.end, {threshold: 1, unit: 'mile'}))
+console.log(this.haversine(this.start, this.end, {threshold: 1, unit: 'meter'}))
     console.log("zeynep");
     return ( 
       <View style = {styles.container}>
@@ -122,6 +139,34 @@ class Maps extends Component {
            {this.state.coordinates.map((coordinate, index) =>//burası markerları katıyor
             <MapView.Marker key={`coordinate_${index}`} coordinate={coordinate} />
           )}
+           <MapViewDirections
+              origin={this.state.coordinates[0]}
+              waypoints={ (this.state.coordinates.length > 2) ? this.state.coordinates.slice(1, -1): null}
+              destination={this.state.coordinates[this.state.coordinates.length-1]}
+              apikey={GOOGLE_MAPS_APIKEY}
+              strokeWidth={3}
+              strokeColor="purple"
+              optimizeWaypoints={true}
+              onStart={(params) => {
+                console.log(`Started routing between "${params.origin}" and "${params.destination}"`);
+              }}
+              onReady={result => {
+                console.log(`Distance: ${result.distance} km`)
+                console.log(`Duration: ${result.duration} min.`)
+  
+                this.mapView.fitToCoordinates(result.coordinates, {
+                  edgePadding: {
+                    right: (width / 20),
+                    bottom: (height / 20),
+                    left: (width / 20),
+                    top: (height / 20),
+                  }
+                });
+              }}
+              onError={(errorMessage) => {
+                //console.log('GOT AN ERROR',errorMessage);
+              }}
+            />
            </MapView> 
            <SafeAreaView style={{ height: PhoneHeight, width: '100%', position: 'absolute', justifyContent: 'space-between'}}>
            <FlatList
@@ -175,36 +220,36 @@ class Maps extends Component {
           ]}
           /> */}
          
-          {/* {(this.state.coordinates.length >= 2) && (
-            <MapViewDirections
-              origin={this.state.coordinates[0]}
-              waypoints={ (this.state.coordinates.length > 2) ? this.state.coordinates.slice(1, -1): null}
-              destination={this.state.coordinates[this.state.coordinates.length-1]}
-              apikey={GOOGLE_MAPS_APIKEY}
-              strokeWidth={3}
-              strokeColor="purple"
-              optimizeWaypoints={true}
-              onStart={(params) => {
-                console.log(`Started routing between "${params.origin}" and "${params.destination}"`);
-              }}
-              onReady={result => {
-                console.log(`Distance: ${result.distance} km`)
-                console.log(`Duration: ${result.duration} min.`)
+        // {(this.state.coordinates.length >= 2) && (
+        //     <MapViewDirections
+        //       origin={this.state.coordinates[0]}
+        //       waypoints={ (this.state.coordinates.length > 2) ? this.state.coordinates.slice(1, -1): null}
+        //       destination={this.state.coordinates[this.state.coordinates.length-1]}
+        //       apikey={GOOGLE_MAPS_APIKEY}
+        //       strokeWidth={3}
+        //       strokeColor="purple"
+        //       optimizeWaypoints={true}
+        //       onStart={(params) => {
+        //         console.log(`Started routing between "${params.origin}" and "${params.destination}"`);
+        //       }}
+        //       onReady={result => {
+        //         console.log(`Distance: ${result.distance} km`)
+        //         console.log(`Duration: ${result.duration} min.`)
   
-                this.mapView.fitToCoordinates(result.coordinates, {
-                  edgePadding: {
-                    right: (width / 20),
-                    bottom: (height / 20),
-                    left: (width / 20),
-                    top: (height / 20),
-                  }
-                });
-              }}
-              onError={(errorMessage) => {
-                //console.log('GOT AN ERROR',errorMessage);
-              }}
-            />
-          )} */}
+        //         this.mapView.fitToCoordinates(result.coordinates, {
+        //           edgePadding: {
+        //             right: (width / 20),
+        //             bottom: (height / 20),
+        //             left: (width / 20),
+        //             top: (height / 20),
+        //           }
+        //         });
+        //       }}
+        //       onError={(errorMessage) => {
+        //         //console.log('GOT AN ERROR',errorMessage);
+        //       }}
+        //     />
+        //   )} 
        
 
 const styles = StyleSheet.create({
